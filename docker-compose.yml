@@ -1,17 +1,19 @@
 version: '2.2'
 services:
   chatfiles:
-    image: guangzhengli/chatfiles:latest
-    container_name: chatfiles
-    ports:
+   build: ./chatfiles
+   ports:
       - 5000:5000
-    environment:
+   environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+   volumes:
+      - ./chatfiles:/app
   chatfiles-ui:
-    image: guangzhengli/chatfiles-ui:latest
-    container_name: chatfiles-ui
+    build: ./chatfiles-ui
     ports:
       - 3000:3000
+    volumes:
+      - ./chatfiles-ui:/app
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - CHAT_FILES_SERVER_HOST=http://chatfiles:5000
